@@ -677,6 +677,10 @@ $(() => {
     
 
 const devices = [
+    {'name': 'iPhone 15 Pro Max', 'screen-size': 6.7, 'resolution': 460, 'height': 2796, 'width': 1290},
+    {'name': 'iPhone 15 Pro', 'screen-size': 6.1, 'resolution': 460, 'height': 2556, 'width': 1179},
+    {'name': 'iPhone 15 Plus', 'screen-size': 6.7, 'resolution': 460, 'height': 2796, 'width': 1290},
+    {'name': 'iPhone 15', 'screen-size': 6.1, 'resolution': 460, 'height': 2556, 'width': 1179},
     {'name': 'iPhone 14 Pro Max', 'screen-size': 6.7, 'resolution': 460, 'height': 2796, 'width': 1290},
     {'name': 'iPhone 14 Pro', 'screen-size': 6.1, 'resolution': 460, 'height': 2556, 'width': 1179},
     {'name': 'iPhone 14 Plus', 'screen-size': 6.7, 'resolution': 458, 'height': 2778, 'width': 1284},
