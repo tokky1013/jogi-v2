@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <!-- <script src="./js/FileSaver.js"></script> -->
+    <script src="https://rawgit.com/kimmobrunfeldt/progressbar.js/master/dist/progressbar.min.js"></script>
+    <script src="./js/editing.js"></script>
+    <script src="https://kit.fontawesome.com/b4dcaee159.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="./css/editing.css">
+    <link rel="apple-touch-icon" type="image/png" href="./images/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="./images/icon-192x192.png">
+
+    <!-- cropper -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+    <script type="text/javascript" src="./js/jquery-cropper.min.js"></script>
+    <link rel="stylesheet" type="text/css" media="all" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css"/>
+    
+    <!-- google adsense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7589361498409260"
+    crossorigin="anonymous"></script>
+
+    <style id="style"></style>
+
+    <title>画像の作成 | 待ち受け画面を定規にできる無料サイト</title>
+</head>
+<body>
+    <header>
+        <!-- <label for=""><i class="fa-solid fa-bars fa-2xl"></i></label> -->
+        <h1>画像を作成</h1>
+    </header>
+    <main>
+        <div id="main-window">
+            <div id="tool-bar-top">
+                <div class="select" id="select-device-name">
+                    機種 : 
+                    <label class="selectbox" onclick="$('#device-selection-container').css('display', 'flex');">
+                        <p id="device-name"></p>
+                    </label>
+                </div>
+                <label id="rotation-button" onclick="rotate();">
+                    <i class="fa-solid fa-turn-down fa-sm"></i>
+                </label>
+            </div>
+            <div id="preview">
+                <img id="cropper-img" src="./images/transparent_image.png">
+                <div id="over-preview">
+                    <label for="input-image-file" id="upload-icon">
+                        <div>
+                            <i class="fa-solid fa-plus fa-2xl"></i>
+                        </div>
+                        <h2>アップロード</h2>
+                    </label>
+                    <div id="setting-container" class="d-none">
+                        <div id="ruler-setting">
+                            <h3>定規のデザイン</h3>
+                            <div>色</div>
+                            <input type="range" id="ruler-blightness" min="0" max="100" value="0">
+                            <div>
+                                配置
+                                <label class="selectbox">
+                                    <select name="ruler-arrangement" id="ruler-arrangement">
+                                        <option value="left">左</option>
+                                        <option value="right">右</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div>
+                                縁取り
+                                <input type="checkbox" id="ruler-facing" hidden>
+                                <label for="ruler-facing"></label>
+                            </div>
+                        </div>
+                        <div id="background-color-setting">
+                            <h3>背景のカラー</h3>
+                            <div>
+                                <div>
+                                    <div id="color1" data-color="linear-gradient(#99FFFF, white)"></div>
+                                    <div id="color2" data-color="linear-gradient(#33FF99, white)"></div>
+                                    <div id="color3" data-color="linear-gradient(#FFFF66, white)"></div>
+                                    <div id="color4" data-color="linear-gradient(white, #FF9999)"></div>
+                                    <div id="color5" data-color="linear-gradient(white, #FF9900)"></div>
+                                    <div id="color6" data-color="linear-gradient(white, #FF6633)"></div>
+                                    <div id="color7" data-color="linear-gradient(white, #FF4444)"></div>
+                                    <div id="color8" data-color="linear-gradient(wheat, white)"></div>
+                                    <div id="color9" data-color="linear-gradient(#FFCCFF, #FF33FF)"></div>
+                                    <div id="color10" data-color="linear-gradient(#33FF99, #99FFFF)"></div>
+                                    <div id="color11" data-color="linear-gradient(#FFFF66, #33FF99)"></div>
+                                    <div id="color12" data-color="linear-gradient(#FF9900, #FFFF66)"></div>
+                                    <div id="color13" data-color="linear-gradient(#FF6633, #FF9999)"></div>
+                                    <div id="color14" data-color="linear-gradient(#FF3333, #FF6633)"></div>
+                                    <div id="color15" data-color="linear-gradient(wheat, #FF3333)"></div>
+                                    <div id="color16" data-color="#99FFFF"></div>
+                                    <div id="color17" data-color="#33FF99"></div>
+                                    <div id="color18" data-color="#FFFF66"></div>
+                                    <div id="color19" data-color="#FF9999"></div>
+                                    <div id="color20" data-color="#FF9900"></div>
+                                    <div id="color21" data-color="#FF6633"></div>
+                                    <div id="color22" data-color="#FF3333"></div>
+                                    <div id="color23" data-color="wheat"></div>
+                                    <div id="color24" data-color="black"></div>
+                                    <div id="color25" data-color="white"></div>
+                                    <p style="flex: 1;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="tool-bar-bottom">
+                <div id="select-background-type">
+                    <div class="select">
+                        壁紙 :
+                        <label class="selectbox">
+                            <select name="background-type" id="background-type">
+                                <option value="image">自分の画像</option>
+                                <option value="color">カラー</option>
+                            </select>
+                        </label>
+                    </div> 
+                    <label for="input-image-file"><i class="fa-solid fa-image fa-xl" id="upload-image"></i></label>
+                    <label id="color-preview"><div></div></label>
+                </div>
+
+                <label id="ruler-setting-button"><i class="fa-solid fa-angle-up fa-2xl"></i></label>
+                <label onclick="download();">
+                    <img src="./images/download_white.png" class="img-download d-none" id="download-btn-white">
+                    <img src="./images/download_gray.png" class="img-download" id="download-btn-gray">
+                    <!-- <i class="fa-solid fa-cloud-arrow-down fa-xl" id="download-btn"></i> -->
+                </label>
+            </div>
+        </div>
+    </main>
+    <div id="device-selection-container">
+        <div id="device-selection">
+            <div id="device-selection-header">
+                <h1>デバイスの選択</h1>
+            </div>
+            <h3>デバイスの種類</h3>
+            <div class="select" id="input-device-type-selection">
+                <label class="selectbox">
+                    <select id="device-type-selection">
+                        <option value="0">iPhone</option>
+                        <option value="1">iPad</option>
+                        <option value="2">Android(スマホ)</option>
+                        <option value="3">Android(タブレット)</option>
+                        <option value="4">その他</option>
+                    </select>
+                </label>
+            </div>
+
+            <h3>機種名</h3>
+            <div class="select" id="input-device-name-selection">
+                <label class="selectbox">
+                    <select name="device-name-selection-0" id="device-name-selection-0">
+                        <option value="iPhone 14 Pro Max">iPhone 14 Pro Max</option>
+                        <option value="iPhone 14 Pro">iPhone 14 Pro</option>
+                        <option value="iPhone 14 Plus">iPhone 14 Plus</option>
+                        <option value="iPhone 14">iPhone 14</option>
+                        <option value="iPhone SE (第 3 世代)">iPhone SE (第 3 世代)</option>
+                        <option value="iPhone 13 Pro Max">iPhone 13 Pro Max</option>
+                        <option value="iPhone 13 Pro">iPhone 13 Pro</option>
+                        <option value="iPhone 13">iPhone 13</option>
+                        <option value="iPhone 13 mini">iPhone 13 mini</option>
+                        <option value="iPhone 12 Pro Max">iPhone 12 Pro Max</option>
+                        <option value="iPhone 12 Pro">iPhone 12 Pro</option>
+                        <option value="iPhone 12">iPhone 12</option>
+                        <option value="iPhone 12 mini">iPhone 12 mini</option>
+                        <option value="iPhone SE (第 2 世代)">iPhone SE (第 2 世代)</option>
+                        <option value="iPhone 11 Pro">iPhone 11 Pro</option>
+                        <option value="iPhone 11 Pro Max">iPhone 11 Pro Max</option>
+                        <option value="iPhone 11">iPhone 11</option>
+                        <option value="iPhone XS">iPhone XS</option>
+                        <option value="iPhone XS Max">iPhone XS Max</option>
+                        <option value="iPhone XR">iPhone XR</option>
+                        <option value="iPhone X">iPhone X</option>
+                        <option value="iPhone 8">iPhone 8</option>
+                        <option value="iPhone 8 Plus">iPhone 8 Plus</option>
+                        <option value="iPhone 7">iPhone 7</option>
+                        <option value="iPhone 7 Plus">iPhone 7 Plus</option>
+                        <option value="iPhone SE">iPhone SE</option>
+                        <option value="iPhone 6s">iPhone 6s</option>
+                        <option value="iPhone 6s Plus">iPhone 6s Plus</option>
+                        <option value="iPhone 6">iPhone 6</option>
+                        <option value="iPhone 6 Plus">iPhone 6 Plus</option>
+                        <option value="iPhone 5s">iPhone 5s</option>
+                        <option value="iPhone 5c">iPhone 5c</option>
+                        <option value="iPhone 5">iPhone 5</option>
+                        <option value="iPhone 4s">iPhone 4s</option>
+                        <option value="iPhone 4">iPhone 4</option>
+                        <option value="iPhone 3GS">iPhone 3GS</option>
+                        <option value="iPhone 3G">iPhone 3G</option>
+                        <option value="iPhone">iPhone</option>
+                        <option value="その他/カスタム">その他/カスタム</option>
+                    </select>
+                    <select name="device-name-selection-1" id="device-name-selection-1">
+                        <option value="iPad Pro 12.9 インチ (第 6 世代)">iPad Pro 12.9 インチ (第 6 世代)</option>
+                        <option value="iPad Pro 11 インチ (第 4 世代)">iPad Pro 11 インチ (第 4 世代)</option>
+                        <option value="iPad Pro 12.9 インチ (第 5 世代)">iPad Pro 12.9 インチ (第 5 世代)</option>
+                        <option value="iPad Pro 11 インチ (第 3 世代)">iPad Pro 11 インチ (第 3 世代)</option>
+                        <option value="iPad Pro 12.9 インチ (第 4 世代)">iPad Pro 12.9 インチ (第 4 世代)</option>
+                        <option value="iPad Pro 11 インチ (第 2 世代)">iPad Pro 11 インチ (第 2 世代)</option>
+                        <option value="iPad Pro 12.9 インチ (第 3 世代)">iPad Pro 12.9 インチ (第 3 世代)</option>
+                        <option value="iPad Pro 11 インチ">iPad Pro 11 インチ</option>
+                        <option value="iPad Pro 12.9 インチ (第 2 世代)">iPad Pro 12.9 インチ (第 2 世代)</option>
+                        <option value="iPad Pro (10.5 インチ)">iPad Pro (10.5 インチ)</option>
+                        <option value="iPad Pro (9.7 インチ)">iPad Pro (9.7 インチ)</option>
+                        <option value="iPad Pro (12.9 インチ)">iPad Pro (12.9 インチ)</option>
+                        <option value="iPad Air (第 5 世代)">iPad Air (第 5 世代)</option>
+                        <option value="iPad Air (第 4 世代)">iPad Air (第 4 世代)</option>
+                        <option value="iPad Air (第 3 世代)">iPad Air (第 3 世代)</option>
+                        <option value="iPad Air 2">iPad Air 2</option>
+                        <option value="iPad Air">iPad Air</option>
+                        <option value="iPad mini (第 6 世代)">iPad mini (第 6 世代)</option>
+                        <option value="iPad mini (第 5 世代)">iPad mini (第 5 世代)</option>
+                        <option value="iPad mini 4">iPad mini 4</option>
+                        <option value="iPad mini 3">iPad mini 3</option>
+                        <option value="iPad mini 2">iPad mini 2</option>
+                        <option value="iPad mini">iPad mini</option>
+                        <option value="iPad (第 10 世代)">iPad (第 10 世代)</option>
+                        <option value="iPad (第 9 世代)">iPad (第 9 世代)</option>
+                        <option value="iPad (第 8 世代)">iPad (第 8 世代)</option>
+                        <option value="iPad (第 7 世代)">iPad (第 7 世代)</option>
+                        <option value="iPad (第 6 世代)">iPad (第 6 世代)</option>
+                        <option value="iPad (第 5 世代)">iPad (第 5 世代)</option>
+                        <option value="iPad (第 4 世代)">iPad (第 4 世代)</option>
+                        <option value="iPad (第 3 世代)">iPad (第 3 世代)</option>
+                        <option value="iPad 2">iPad 2</option>
+                        <option value="iPad">iPad</option>
+                        <option value="その他/カスタム">その他/カスタム</option>
+                    </select>
+                    <select name="device-name-selection-2" id="device-name-selection-2">
+                        <option value="AQUOS wish3">AQUOS wish3</option>
+                        <option value="AQUOS R8 pro">AQUOS R8 pro</option>
+                        <option value="AQUOS R8">AQUOS R8</option>
+                        <option value="AQUOS sense7">AQUOS sense7</option>
+                        <option value="AQUOS sense7 plus">AQUOS sense7 plus</option>
+                        <option value="AQUOS wish2">AQUOS wish2</option>
+                        <option value="AQUOS R7">AQUOS R7</option>
+                        <option value="AQUOS sense6">AQUOS sense6</option>
+                        <option value="AQUOS sense5G">AQUOS sense5G</option>
+                        <option value="arrows N F-51C">arrows N F-51C</option>
+                        <option value="arrows We F-51B">arrows We F-51B</option>
+                        <option value="arrows We FCG01">arrows We FCG01</option>
+                        <option value="arrows We">arrows We</option>
+                        <option value="arrows Be4 Plus F-41B">arrows Be4 Plus F-41B</option>
+                        <option value="arrows NX9 F-52A">arrows NX9 F-52A</option>
+                        <option value="arrows 5G F-51A">arrows 5G F-51A</option>
+                        <option value="Galaxy S23 Ultra">Galaxy S23 Ultra</option>
+                        <option value="Galaxy S23">Galaxy S23</option>
+                        <option value="Galaxy A54 5G">Galaxy A54 5G</option>
+                        <option value="Galaxy A23 5G">Galaxy A23 5G</option>
+                        <option value="Galaxy Z Fold4">Galaxy Z Fold4</option>
+                        <option value="Galaxy Z Flip4">Galaxy Z Flip4</option>
+                        <option value="Galaxy A53 5G">Galaxy A53 5G</option>
+                        <option value="Galaxy S22">Galaxy S22</option>
+                        <option value="Galaxy S22 Ultra">Galaxy S22 Ultra</option>
+                        <option value="motorola edge 40">motorola edge 40</option>
+                        <option value="motorola razr 40 ultra">motorola razr 40 ultra</option>
+                        <option value="moto g53j 5G">moto g53j 5G</option>
+                        <option value="moto g13">moto g13</option>
+                        <option value="moto g52j 5G">moto g52j 5G</option>
+                        <option value="motorola edge 20">motorola edge 20</option>
+                        <option value="OPPO Find X3 Pro">OPPO Find X3 Pro</option>
+                        <option value="OPPO Reno9 A">OPPO Reno9 A</option>
+                        <option value="OPPO Reno7 A">OPPO Reno7 A</option>
+                        <option value="OPPO Reno5 A">OPPO Reno5 A</option>
+                        <option value="OPPO A77">OPPO A77</option>
+                        <option value="OPPO A55s 5G">OPPO A55s 5G</option>
+                        <option value="Google Pixel 7a">Google Pixel 7a</option>
+                        <option value="Google Pixel Fold">Google Pixel Fold</option>
+                        <option value="Google Pixel 7 Pro">Google Pixel 7 Pro</option>
+                        <option value="Google Pixel 7">Google Pixel 7</option>
+                        <option value="Google Pixel 6a">Google Pixel 6a</option>
+                        <option value="Google Pixel 6 Pro">Google Pixel 6 Pro</option>
+                        <option value="Google Pixel 6">Google Pixel 6</option>
+                        <option value="Xperia 1 V">Xperia 1 V</option>
+                        <option value="Xperia 1 IV">Xperia 1 IV</option>
+                        <option value="Xperia 1 III">Xperia 1 III</option>
+                        <option value="Xperia 1 II">Xperia 1 II</option>
+                        <option value="Xperia 1">Xperia 1</option>
+                        <option value="Xperia 5 IV">Xperia 5 IV</option>
+                        <option value="Xperia 5 III">Xperia 5 III</option>
+                        <option value="Xperia 5 II">Xperia 5 II</option>
+                        <option value="Xperia 5">Xperia 5</option>
+                        <option value="Xperia 10 V">Xperia 10 V</option>
+                        <option value="Xperia 10 IV">Xperia 10 IV</option>
+                        <option value="Xperia Ace III">Xperia Ace III</option>
+                        <option value="Zenfone 9">Zenfone 9</option>
+                        <option value="Zenfone 8 Flip">Zenfone 8 Flip</option>
+                        <option value="Zenfone 8">Zenfone 8</option>
+                        <option value="その他/カスタム">その他/カスタム</option>
+                    </select>
+                    <select name="device-name-selection-3" id="device-name-selection-3">
+                        <option value="Nova Air C">Nova Air C</option>
+                        <option value="Nova Air">Nova Air</option>
+                        <option value="Tab M10（3rd Gen）">Tab M10（3rd Gen）</option>
+                        <option value="Tab M8 (3rd Gen)">Tab M8 (3rd Gen)</option>
+                        <option value="aiwa JA3-TBA0802">aiwa JA3-TBA0802</option>
+                        <option value="aiwa JA2-TBW1001">aiwa JA2-TBW1001</option>
+                        <option value="Redmi Pad">Redmi Pad</option>
+                        <option value="LAVIE Tab T10">LAVIE Tab T10</option>
+                        <option value="OPPO Pad Air">OPPO Pad Air</option>
+                        <option value="Surface Pro 9">Surface Pro 9</option>
+                        <option value="Surface Go 3">Surface Go 3</option>
+                        <option value="Fire HD 10">Fire HD 10</option>
+                        <option value="Yoga Tab 11">Yoga Tab 11</option>
+                        <option value="Galaxy Tab S8 Ultra">Galaxy Tab S8 Ultra</option>
+                        <option value="Galaxy Tab S8+">Galaxy Tab S8+</option>
+                        <option value="LAVIE Tab T12">LAVIE Tab T12</option>
+                        <option value="FMV LOOX 75/G">FMV LOOX 75/G</option>
+                        <option value="その他/カスタム">その他/カスタム</option>
+                    </select>
+                    <select name="device-name-selection-4" id="device-name-selection-4">
+                        <option value="その他/カスタム">その他/カスタム</option>
+                    </select>
+                </label>
+            </div>
+
+            <div id="screen-size-custum">
+                <h3>画面サイズ</h3>
+                <div class="select" id="input-screen-height">
+                    縦 : 
+                    <input type="number" id="screen-height">
+                    px
+                </div>
+                <div class="select" id="input-screen-width">
+                    横 : 
+                    <input type="number" id="screen-width">
+                    px
+                </div>
+                <p id="error-screen-size" class="error">画面サイズを入力してください。</p>
+                <hr>
+                <p>「画面サイズ(対角)」、「ピクセル解像度」のいずれか一方をご入力ください。</p>
+                <h3>画面サイズ(対角)</h3>
+                <div class="select" id="input-screen-size-inch">
+                    <input type="number" id="screen-size-inch">
+                    インチ
+                </div>
+                <h3>ピクセル解像度</h3>
+                <div class="select" id="input-pixel-resolution">
+                    <input type="number" id="pixel-resolution">
+                    ppi
+                </div>
+                <p id="error-resolution" class="error">「画面サイズ(対角)」または「ピクセル解像度」を入力してください。</p>
+            </div>
+            <div id="creation-button-container">
+                <button onclick="start();">開始</button>
+            </div>
+        </div>
+    </div>
+    <div id="downloading-screen-container">
+        <div id="downloading-screen" class="downloading-screen">
+            <!-- <img src="./images/icon-192x192.png" alt="">
+            ここに広告等をおく -->
+            <div id="downloading-screen1">
+                <div id="container"></div>
+                画像を生成中
+            </div>
+            <div id="downloading-screen2">
+                <div class="delete-button" id="delete-button1"><i class="fa-solid fa-circle-xmark fa-lg"></i></div>
+                <h3>ダウンロード完了</h3>
+                <label id="showImage" onclick="showPreview();">うまくダウンロードできない場合はこちら</label>
+            </div>
+        </div>
+        <div id="image-container">
+            <div class="delete-button" id="delete-button2"><i class="fa-solid fa-circle-xmark fa-lg"></i></div>
+            うまくダウンロードできない場合は、<br>↓この画像を長押しまたは右クリックでダウンロードしてください。
+            <div><img id="image"></div>
+        </div>
+    </div>
+    <input type="file" accept="image/*" id="input-image-file" hidden>
+    <a id="file_dl" download="ruler.png"></a>
+</body>
+</html>

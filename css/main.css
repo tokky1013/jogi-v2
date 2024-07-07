@@ -1,0 +1,151 @@
+body {
+    margin: 0;
+    background-color: rgb(240, 240, 240);
+    min-height: 100vh;
+    font-family:  "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
+}
+
+header {
+    /* background-color: rgb(100, 227, 252); */
+    background-color: black;
+    color: white;
+    padding: 0 10px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#overview {
+    background: linear-gradient(rgb(38, 38, 38), rgb(56, 84, 146));
+    padding: 15px;
+    color: white;
+}
+
+#overview>h2 {
+    text-decoration: underline;
+    margin: 10px 0;
+}
+
+#overview>p {
+    margin: 0 5px;
+}
+
+.btn-container {
+    text-align: center;
+    padding: 50px 0;
+}
+
+.btn {
+    background-color: white;
+    color: black;
+    border-radius: 10px;
+    padding: 15px 45px;
+    text-decoration: none;
+    font-size: x-large;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 0 40px;
+    transition: .3s;
+}
+
+main>.btn-container>.btn {
+    background-color: rgb(56, 84, 156);
+    color: white;
+    padding: 12px 40px;
+}
+
+.btn:hover {
+    background-color: #11c3ab;
+}
+
+main>.btn-container>.btn:hover {
+    background-color: #11c3ab;
+}
+
+#img-container {
+    display: flex;
+    overflow-y: scroll;
+    padding-bottom: 20px;
+}
+
+.img {
+    width: calc(31% - 10px);
+    min-width: 200px;
+    padding: 0 calc(5px + 2%);
+}
+
+#usage {
+    background-color: white;
+    border-radius: 10px;
+    margin: 30px 10px 0;
+    padding-top: 0;
+    box-shadow: rgba(0, 0, 0, 0.43) 0 0 20px;
+    overflow: hidden;
+}
+
+#usage>h2 {
+    margin: 10px;
+}
+
+.step {
+    display: flex;
+    width: 100%;
+    padding-top: 15px;
+    padding-bottom: 30px;
+    padding-left: 5%;
+}
+
+.step img {
+    width: 20%;
+    margin: auto 0;
+}
+
+.step>div {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.step p {
+    margin: 2px 20px;
+}
+
+.p-lg {
+    margin-left: 10px;
+    font-size: 1.15em;
+}
+.p-sm {
+    font-size: 0.7em;
+}
+
+footer {
+    background-color: rgb(10, 30, 90);
+    color: white;
+    overflow: hidden;
+}
+
+footer>h2 {
+    margin: 15px 15px 5px;
+}
+
+footer>p {
+    margin: 0 20px;
+}
+
+footer .btn-container {
+    padding: 30px 0;
+}
+footer .btn {
+    font-size: large;
+    padding: 10px 30px;
+}
+
+#language {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+#language a {
+    color: rgb(0, 115, 255);
+}
